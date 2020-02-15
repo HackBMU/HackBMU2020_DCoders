@@ -23,6 +23,6 @@ urlpatterns=[
     path('searchresult/',views.searchresult),
     path('addtolost/<int:id>',views.addtolost,name='child/addtolost'),
     path('deletefromlost/<int:id>',views.deletefromlost,name='child/deletefromlost'),
-    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',views.activate, name='activate'),
-    
+    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/(?P<year>[0-9]{1,10})/$',views.activate, name='activate'),
+    path('childdetails/',views.childdetails),
 ]
