@@ -22,7 +22,7 @@ from django.core.mail import EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
-
+import requests
 
 def register(request):
   if request.method=='POST':
@@ -118,6 +118,14 @@ def addtolost(request,id):
 #  u=lost(**data[0])
 #  u.save()
   return render(request,'child/addtolost.html')
+def display_ip():
+    """  Function To Print GeoIP Latitude & Longitude """
+    ip_request = requests.get('https://get.geojs.io/v1/ip.json')
+    my_ip = ip_request.json()['ip']
+    geo_request = requests.get('https://get.geojs.io/v1/ip/geo/' +my_ip + '.json')
+    geo_data = geo_request.json()
+    a=[geo_data['region'],geo_data['latitude'],geo_data['longitude']]
+    return a
 @login_required
 def searchresult(request):
   faceDetect=cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
@@ -157,23 +165,30 @@ def searchresult(request):
   cv2.destroyAllWindows()
   current_site=get_current_site(request)
   mail_subject='Give Permisssion to access Details of child'
-  message = render_to_string('child/acc_active_email.html',{'user':request.user,'gfid':id,'domain':current_site.domain,'uid':urlsafe_base64_encode(force_bytes(request.user.id)),'token':account_activation_token.make_token(request.user),})
+  ip_request = requests.get('https://get.geojs.io/v1/ip.json')
+  my_ip = ip_request.json()['ip']  # ip_request.json() => {ip: 'XXX.XXX.XX.X'}
+  geo_request_url = 'https://get.geojs.io/v1/ip/geo/' + my_ip + '.json'
+  geo_request = requests.get(geo_request_url)
+  geo_data = geo_request.json()
+  r=display_ip()
+  message = render_to_string('child/acc_active_email.html',{'user':request.user,'domain':current_site.domain,'uid':urlsafe_base64_encode(force_bytes(id)),'token':account_activation_token.make_token(request.user),'region':r[0],'long':r[1],'lat':r[2]})
   to_email='akeshav53@gmail.com'
   email=EmailMessage(mail_subject,message,to=[to_email])
   email.send()
   messages.success(request,f'We have sent the confirmation mail')
-  render(request,'child/index.html')
-  i=int(input())
-  if(i==1):
-    return render(request,'child/searchresult.html',{'profile':profile})
+  return render(request,'child/index.html')
+ # return render(request,'child/searchresult.html',{'profile':profile})
 
-def activate(request,uidb64,token):
+def activate(request,uidb64,token,year):
   try:
-    uid=force_text(urlsafe_base64_decode(uidb64))
-    user=User.objects.get(pk=uid)
+    child_id=force_text(urlsafe_base64_decode(uidb64))
+    user=User.objects.get(pk=year)
+    child1=esehi.objects.get(pk=child_id)
   except (TypeError,ValueError,OverflowError,User.DoesNotExist):
     user=None
   if user is not None and account_activation_token.check_token(user,token):
+    child1.perms=True
+    child1.save()
     return HttpResponse('<h2>Access Granted</h2>')
   else:
     return HttpResponse('activation link is invalid!')
@@ -181,3 +196,13 @@ def activate(request,uidb64,token):
 def deletefromlost(request,id):
   #lost.objects.filter(id=id).delete()
   return HttpResponse("Member has been successfully removed from lost list of our database.")
+
+def childdetails(request):
+  conn = sqlite3.connect("db.sqlite3")
+  cmd = "SELECT * from child_esehi WHERE perms=1"
+  cursor = conn.execute(cmd)
+  profile=None
+  for row in cursor:
+    profile = row
+  conn.close()
+  return render(request,'child/searchresult.html',{'profile':profile})
