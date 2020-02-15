@@ -3,9 +3,9 @@
 
 {%block style%}
 .col-md-3{
-	display: inline-block;
-	margin-left:-4px;
-	margin-top:50px;
+  display: inline-block;
+  margin-left:-4px;
+  margin-top:50px;
 
 } 
 .namak{
@@ -23,12 +23,6 @@
     background-color: #040201;
     background-repeat: no-repeat;
     background-size: cover;
-  }
-
-  .container{
-    color: white;
-    padding-top: 15rem;
-    padding-left: 28rem ;
   }
 
 
@@ -56,9 +50,25 @@
        
 </nav>
       <div class="container">
-<h3> Search Family </h3>
-<a class="btn btn-outline-success" href="/child/searchresult">Click Here for Searrch</a>
-<h6>Please, Look in front of WebCam.</h6>  
-
+      <div class="card mb-3" style="max-width: 540px;">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <img src="/media/{{profile.6}}" class="card-img" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{profile.0}}  {{profile.1}} </h5>
+        <p class="card-text">
+        {{profile.3}}
+      </p>
+        <p class="card-text"><small class="text-muted">{{profile.4}}</br>{{profile.2}}</small></p>
+      </div>
+    </div>
+  </div>
+</div>
       </div>
 {%endblock%}
+
+
+
+

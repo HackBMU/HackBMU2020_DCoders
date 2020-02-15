@@ -3,9 +3,9 @@
 
 {%block style%}
 .col-md-3{
-	display: inline-block;
-	margin-left:50px;
-	margin-top:30px;
+  display: inline-block;
+  margin-left:50px;
+  margin-top:30px;
 
 } 
 .namak{
@@ -17,6 +17,30 @@
 {%endblock%}
 
 {%block body%}
+
+<style>
+  body{
+    background-color: #040201;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .card{
+    background: transparent;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    
+
+  }
+
+  h2{
+    color: white;
+  }
+
+  
+  </style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">Milaap</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,12 +59,13 @@
       </li>
         </ul>
         </div>
+        <a class="btn btn-outline-success my-2 my-sm-0 mr-3" href="/child/childdetails">Child Details</a>
         <a class="btn btn-outline-success my-2 my-sm-0 mr-3" href="/child/logout">Logout</a>
        
 </nav></br>
 <h2>Hello, {{user}}!</h2>
-        <div><div class="col-sm-3 col-xs-3 col-md-3">
-<div class="card" style="width: 18rem;">
+        <div><div class="col-sm-3 col-xs-3 col-md-3 co">
+<div class="card" style="width: 18rem; ">
   <img src='/media/child/add member.png' class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title">Add Member</h5>
@@ -49,11 +74,11 @@
   </div></div>
 </div><div class="col-sm-3 col-xs-3 col-md-3">
 <div class="card" style="width: 18rem;">
-  <img src='/media/child/search member.png' class="card-img-top" alt="...">
+  <img src='https://i.postimg.cc/28J38mHp/search.png' class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title">Search Family</h5>
     <p class="card-text">
-    	Search Parents or any family member to unknown person.
+      Search Parents or any family member to unknown person.
     </p>
     <a href="/child/search" class="btn btn-primary">Go to Search</a>
   </div></div>
@@ -63,7 +88,7 @@
   <img src='/media/child/members.png'members.png" class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title">Show Members</h5>
-    <p class="card-text">Here you can see all the member of you account which you had added.</p>
+    <p class="card-text">You can see all the member of you account which you had added.</p>
     <a href="/child/allmembers" class="btn btn-primary">Go to Members</a>
   </div>
 </div>
