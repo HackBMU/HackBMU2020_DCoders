@@ -1,9 +1,9 @@
 # HackBMU2020_DCoders
-##Milaap
+## Milaap
 
-###A secured web platform that will help us to find the family of lost and missing people using Facial recognition.
+### A secured web platform that will help us to find the family of lost and missing people using Facial recognition.
 
-###Key Features :
+### Key Features :
 An Interactive admin interface to provide different options :
 Can manage his family details on his account
 Search the family for someone’s lost child
@@ -16,7 +16,7 @@ Master List consisting all missing/ lost persons to be scanned first then indivi
 
 Updating facial features of each user every year.
 
-By :
+### By :
 Nishkarsh Gandhi gandhi.nishkarsh@gmail.com
 Nirbhay Jain     nirbhayyjain@gmail.com
 Keshav Kumar     akeshav53@gmail.com
